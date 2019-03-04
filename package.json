@@ -1,0 +1,15 @@
+{
+  "name": "build-a-wall",
+  "version": "0.1.0",
+  "description": "TRON, but with a twist.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "n8wm",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  }
+}
