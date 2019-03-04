@@ -1,5 +1,6 @@
 body {
-  position: absolute;
+  position: fixed;
+  overflow: hidden;
   left: 0;
   top: 0;
   width: 100%;
