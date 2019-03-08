@@ -1,5 +1,8 @@
 function initiate() {
-  var svg = document.getElementById("svg-area");
-  svg.width = document.getElementById("gameplay").offsetWidth;
-  svg.height = document.getElementById("gameplay").offsetHeight;
+  var gameplay = document.getElementById("gameplay");
+  if (gameplay.offsetWidth > gameplay.offsetHeight) {
+    gameplay.style.width = gameplay.offsetHeight + "px";
+  } else {
+    gameplay.style.height = gameplay.offsetWidth + "px";
+  }
 }
