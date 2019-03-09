@@ -6,7 +6,7 @@ var gameplayHeight = 0;
 function initiate() {
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
-  if (gameplayContainer.offsetWidth > gameplayContainer.offsetHeight * viewport) {
+  if (gameplayContainer.offsetWidth * (1.0/viewport) < gameplayContainer.offsetHeight) {
     gameplayWidth = gameplayContainer.offsetWidth * 0.9;
     gameplayHeight = gameplayWidth * viewport;
   } else {
