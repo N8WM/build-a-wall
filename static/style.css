@@ -16,7 +16,8 @@ body {
   text-align: center;
   font-size: 7vh;
   color: #FFF;
-  line-height: 10vh;
+  line-height: calc(10vh-1px);
+  border-bottom: solid 1px #274949;
 }
 
 #gameplay-container {
