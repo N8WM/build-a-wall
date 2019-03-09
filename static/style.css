@@ -38,4 +38,5 @@ body {
   height: 0px;
   border-radius: 11px;
   transition: width 600ms, height 600ms;
+  overflow: hidden;
 }
