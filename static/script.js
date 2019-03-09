@@ -1,9 +1,13 @@
+var gameplaySize = 0;
+
 function initiate() {
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
-  if (gameplay.offsetWidth > gameplay.offsetHeight) {
-    gameplay.style.width = gameplay.offsetHeight + "px";
+  if (gameplayContainer.offsetWidth > gameplayContainer.offsetHeight) {
+    gameplaySize = gameplayContainer.offsetHeight * 0.9;
   } else {
-    gameplay.style.height = gameplay.offsetWidth + "px";
+    gameplaySize = gameplayContainer.offsetWidth * 0.9;
   }
+  gameplay.style.width = gameplaySize + "px";
+  gameplay.style.height = gameplaySize + "px";
 }
