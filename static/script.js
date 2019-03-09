@@ -6,6 +6,6 @@ function initiate() {
   var gameplayContainer = document.getElementById("gameplay-container");
   gameplayWidth = gameplayContainer.offsetWidth * 0.9;
   gameplayHeight = gameplayWidth * 0.5625;
-  gameplay.style.width = gameplaySize + "px";
-  gameplay.style.height = gameplaySize + "px";
+  gameplay.style.width = gameplayWidth + "px";
+  gameplay.style.height = gameplayHeight + "px";
 }
