@@ -7,10 +7,10 @@ function initiate() {
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
   if (gameplayContainer.offsetWidth * viewport < gameplayContainer.offsetHeight) {
-    gameplayWidth = gameplayContainer.offsetWidth * 0.9;
+    gameplayWidth = gameplayContainer.offsetWidth;
     gameplayHeight = gameplayWidth * viewport;
   } else {
-    gameplayHeight = gameplayContainer.offsetHeight * 0.9;
+    gameplayHeight = gameplayContainer.offsetHeight;
     gameplayWidth = gameplayHeight * (1.0/viewport);
   }
   gameplay.style.width = gameplayWidth + "px";
