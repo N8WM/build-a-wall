@@ -20,7 +20,7 @@ function initiate() {
   }
   gameplay.style.width = gameplayWidth + "px";
   gameplay.style.height = gameplayHeight + "px";
-  svg.innerHTML = "<image xlink:href='https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png' height='" + getRealX(20) + "' width='" + getRealX(20) + "' x='" + getRealX(0) + "' y='" + getRealX(0) + "'/>";
+  svg.innerHTML = "<image xlink:href='https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png' height='" + getRealY(20) + "' width='" + getRealX(20) + "' x='" + getRealX(0) + "' y='" + getRealY(0) + "'/>";
 }
 
 function run() {
