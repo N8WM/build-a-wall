@@ -4,12 +4,15 @@ var transVPY = 256.0;
 
 // viewport translated: (144, 256) radius
 
+var gameplay = document.getElementById("gameplay");
+var gameplayContainer = document.getElementById("gameplay-container");
+
 var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
-  var gameplay = document.getElementById("gameplay");
-  var gameplayContainer = document.getElementById("gameplay-container");
+  // var gameplay = document.getElementById("gameplay");
+  // var gameplayContainer = document.getElementById("gameplay-container");
   if (gameplayContainer.offsetWidth * viewport < gameplayContainer.offsetHeight) {
     gameplayWidth = gameplayContainer.offsetWidth;
     gameplayHeight = gameplayWidth * viewport;
