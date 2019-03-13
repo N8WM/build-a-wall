@@ -10,6 +10,7 @@ var gameplayHeight = 0;
 function initiate() {
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
+  var svg = document.getElementById("svg");
   if (gameplayContainer.offsetWidth * viewport < gameplayContainer.offsetHeight) {
     gameplayWidth = gameplayContainer.offsetWidth;
     gameplayHeight = gameplayWidth * viewport;
@@ -19,11 +20,13 @@ function initiate() {
   }
   gameplay.style.width = gameplayWidth + "px";
   gameplay.style.height = gameplayHeight + "px";
+  svg.innerHTML = "<image xlink:href='https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png' height='" + getRealX(20) + "' width='" + getRealX(20) + "' x='" + getRealX(0) + "' y='" + getRealX(0) + "'/>";
 }
 
 function run() {
   
   window.requestAnimationFrame(run);
+  
 }
 
 function getRealX(x) {
@@ -41,3 +44,4 @@ function getEasyX(x) {
 function getEasyY(y) {
   return (((gameplayHeight - y) / gameplayHeight) * (2.0 * transVPY)) - transVPY;
 }
+
