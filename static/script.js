@@ -20,7 +20,7 @@ function initiate() {
   }
   gameplay.style.width = gameplayWidth + "px";
   gameplay.style.height = gameplayHeight + "px";
-  svg.innerHTML = "<image href='build-a-wall/brick.png' height='" + getRealY(20) + "' width='" + getRealX(20) + "' x='" + getRealX(0) + "' y='" + getRealY(0) + "'/>";
+  svg.innerHTML = "<image xlink:href='https://github.com/N8WM/build-a-wall/blob/master/brick.png?raw=true' height='" + getRealY(20) + "' width='" + getRealX(20) + "' x='" + getRealX(0) + "' y='" + getRealY(0) + "'/>";
 }
 
 function run() {
