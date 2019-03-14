@@ -20,7 +20,12 @@ function initiate() {
   }
   gameplay.style.width = gameplayWidth + "px";
   gameplay.style.height = gameplayHeight + "px";
-  svg.innerHTML = "<image xlink:href='https://github.com/N8WM/build-a-wall/blob/master/brick.png?raw=true' width='" + getRealX(20) + "' x='" + getRealX(0) + "' y='" + getRealY(0) + "'/>";
+  svg.innerHTML = "";
+  for (var i = 0; i < 16; i++) {
+    for (var j = 0; j < 9; j++) {
+    svg.innerHTML += "<image xlink:href='https://github.com/N8WM/build-a-wall/blob/master/brick.png?raw=true' width='" + getRealX(16) + "' x='" + getRealX(i*16) + "' y='" + getRealY(j*16) + "'/>";
+    }
+  }
 }
 
 function run() {
