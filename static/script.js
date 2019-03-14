@@ -1,8 +1,8 @@
 var viewport = (9.0/16.0);
-var transVPX = 144.0;
-var transVPY = 256.0;
+var transVPX = 256.0;
+var transVPY = 144.0;
 
-// viewport translated: (144, 256) radius
+// viewport translated: (256, 144) radius
 
 var gameplayWidth = 0;
 var gameplayHeight = 0;
@@ -30,18 +30,18 @@ function run() {
 }
 
 function getRealX(x) {
-  return ((x + transVPX) / (2.0 * transVPX)) * gameplayWidth;
+  return (x / transVPX) * gameplayWidth;
 }
 
 function getRealY(y) {
-  return gameplayHeight - ((y + transVPY) / (2.0 * transVPY)) * gameplayHeight;
+  return (y / transVPY) * gameplayHeight;
 }
 
 function getEasyX(x) {
-  return ((x / gameplayWidth) * (2.0 * transVPX)) - transVPX;
+  return (x / gameplayWidth) * transVPX;
 }
 
 function getEasyY(y) {
-  return (((gameplayHeight - y) / gameplayHeight) * (2.0 * transVPY)) - transVPY;
+  return (y / gameplayHeight) - transVPY;
 }
 
