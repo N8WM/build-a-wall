@@ -9,8 +9,8 @@ var playerY;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
-  for var j = 0; j < stageSize; j++) {
-    
+  for (var j = 0; j < stageSize; j++) {
+    blocks[i][j].push(0);
   }
 }
 
@@ -64,9 +64,14 @@ function sy2vpy(y) {
   return y * blockSize;
 }
 
+function vpx2sx(x) {
+  return x / blockSize;
+}
+
+function vpy2sy(y) {
+  return y / blockSize;
+}
+
 function placeWall(x, y) {
-  if (x < 13) {
-    return 12;
-  }
-  return 14;
+  blocks.push[vpx2sx(x)][vpy2sy(y)];
 }
