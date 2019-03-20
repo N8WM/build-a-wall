@@ -40,6 +40,16 @@ function run() {
   
 }
 
+function draw() {
+  for (var i = 0; i < blocks.length; i++) {
+    for (var j = 0; j < blocks[0].length; j++) {
+      if (blocks[i][j] === 1) {
+        drawWall(i, j);
+      }
+    }
+  }
+}
+
 function vpx2rx(x) {
   return (x / transVPX) * gameplayWidth;
 }
@@ -74,4 +84,9 @@ function vpy2sy(y) {
 
 function placeWall(x, y) {
   blocks.push[vpx2sx(x)][vpy2sy(y)];
+}
+
+function drawWall(x, y) {
+  var svg = document.getElementById("svg");
+  var str = "<rect x='" + vpx2rx((sx2vpx(x) - playerX)) + "' y='" + vpy2ry((sy2vpy(y) - playerY)) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
 }
