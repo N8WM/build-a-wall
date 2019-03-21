@@ -10,11 +10,11 @@ var playerY;
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
   for (var j = 0; j < stageSize; j++) {
-    blocks[i][j].push(0);
+    blocks[i][j].push((Math.random()*5===2)?1:0);
   }
 }
 
-// viewport translated: (256, 144) radius
+// viewport translated: (256, 144)
 
 var gameplayWidth = 0;
 var gameplayHeight = 0;
@@ -35,9 +35,11 @@ function initiate() {
 }
 
 function run() {
+  var svg = document.getElementById("svg");
+  svg.innerHTML = "";
+  draw();
   
   window.requestAnimationFrame(run);
-  
 }
 
 function draw() {
@@ -88,5 +90,5 @@ function placeWall(x, y) {
 
 function drawWall(x, y) {
   var svg = document.getElementById("svg");
-  var str = "<rect x='" + vpx2rx((sx2vpx(x) - playerX)) + "' y='" + vpy2ry((sy2vpy(y) - playerY)) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
+  svg.innerHTML += "<rect x='" + vpx2rx((sx2vpx(x) - playerX + (transVPX / 2))) + "' y='" + vpy2ry((sy2vpy(y) - playerY + (transVPY / 2))) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
 }
