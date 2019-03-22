@@ -41,7 +41,7 @@ function run() {
   svg.innerHTML = "";
   draw();
   
-  window.requestAnimationFrame(run);
+  //window.requestAnimationFrame(run);
 }
 
 function draw() {
