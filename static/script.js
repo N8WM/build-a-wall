@@ -4,8 +4,8 @@ var transVPY = 144.0;
 var stageSize = 128;
 var blockSize = 16;
 
-var playerX;
-var playerY;
+var playerX = 128;
+var playerY = 72;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
