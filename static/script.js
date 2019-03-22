@@ -1,3 +1,5 @@
+// TODO: switch from SVG to canvas
+
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
