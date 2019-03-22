@@ -9,9 +9,11 @@ var playerY;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
+  var tmp = [];
   for (var j = 0; j < stageSize; j++) {
-    blocks[i][j].push((Math.random()*5===2)?1:0);
+    tmp.push((Math.floor(Math.random()*5)===2)?1:0);
   }
+  blocks.push(tmp);
 }
 
 // viewport translated: (256, 144)
