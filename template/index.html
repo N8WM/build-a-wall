@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>build-a-wall</title>
-    <meta name="apple-mobile-web-app-title" content="build-a-wall">
+    <title>Blockable</title>
+    <meta name="apple-mobile-web-app-title" content="Blockable">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="viewport" content="width=device-width, user-scalable=no">
@@ -14,8 +14,7 @@
   <body onload="initiate(); run();" onresize="setTimeout(initiate, 300)">
     <div id="gameplay-container">
       <div id="gameplay">
-        <svg id="svg" width="100%" height="100%" id="svg-area" ontouchstart="run()">
-        </svg>
+        <canvas id="canvas" width="100%" height="100%"></canvas>
       </div>
     </div>
   </body>
