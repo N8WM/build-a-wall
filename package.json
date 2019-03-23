@@ -1,5 +1,5 @@
 {
-  "name": "build-a-wall",
+  "name": "blockable",
   "version": "0.1.0",
   "description": "TRON, but with a twist.",
   "main": "index.js",
