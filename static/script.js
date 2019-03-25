@@ -41,7 +41,7 @@ function initiate() {
 
 function run() {
   var ctx = document.getElementById("canvs").getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   draw();
   playerX += 0.1;
   playerY += 0.1;
