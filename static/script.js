@@ -5,8 +5,8 @@ var transVPY = 144.0;
 var stageSize = 128;
 var blockSize = 16;
 
-var playerX = 128;
-var playerY = 72;
+var playerX = 0;
+var playerY = 0;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
@@ -41,8 +41,9 @@ function initiate() {
 
 function run() {
   draw();
-
-  //window.requestAnimationFrame(run);
+  playerX++;
+  playerY++;
+  window.requestAnimationFrame(run);
 }
 
 function draw() {
@@ -93,7 +94,6 @@ function placeWall(x, y) {
 
 function drawWall(x, y) {
   var ctx = document.getElementById("canvs").getContext("2d");
-  // svg.innerHTML += "<rect x='" + vpx2rx((sx2vpx(x) - playerX + (transVPX / 2))) + "' y='" + vpy2ry((sy2vpy(y) - playerY + (transVPY / 2))) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
   var cx = vpx2rx((sx2vpx(x) - playerX + (transVPX / 2)));
   var cy = vpy2ry((sy2vpy(y) - playerY + (transVPY / 2)));
   var width = vpx2rx(blockSize);
