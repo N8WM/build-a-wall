@@ -2,11 +2,12 @@
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
-var stageSize = 128;
+var stageSize = 64;
 var blockSize = 16;
 
 var playerX = 0;
 var playerY = 0;
+var playerD = 90;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
@@ -43,6 +44,7 @@ function run() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   draw();
+  drawBorders()
   playerX += 0.1;
   playerY += 0.1;
   window.requestAnimationFrame(run);
@@ -101,8 +103,36 @@ function drawWall(x, y) {
   var width = vpx2rx(blockSize);
   var height = vpy2ry(blockSize);
   ctx.beginPath();
-  ctx.lineWidth = "4";
+  ctx.lineWidth = "3";
   ctx.strokeStyle = "green";
   ctx.rect(cx, cy, width, height);
+  ctx.stroke();
+}
+
+function drawBorders() {
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "black";
+  ctx.moveTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
+  ctx.lineTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "black";
+  ctx.moveTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
+  ctx.lineTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "black";
+  ctx.moveTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
+  ctx.lineTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "black";
+  ctx.moveTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
+  ctx.lineTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
   ctx.stroke();
 }
