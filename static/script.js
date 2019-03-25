@@ -25,7 +25,7 @@ var gameplayHeight = 0;
 function initiate() {
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
-  var canvas = document.getElementById("canvas");
+  var canvas = document.getElementById("canvs");
   if (gameplayContainer.offsetWidth * viewport < gameplayContainer.offsetHeight) {
     gameplayWidth = gameplayContainer.offsetWidth;
     gameplayHeight = gameplayWidth * viewport;
@@ -92,7 +92,7 @@ function placeWall(x, y) {
 }
 
 function drawWall(x, y) {
-  var ctx = document.getElementById("canvas").getContext("2d");
+  var ctx = document.getElementById("canvs").getContext("2d");
   // svg.innerHTML += "<rect x='" + vpx2rx((sx2vpx(x) - playerX + (transVPX / 2))) + "' y='" + vpy2ry((sy2vpy(y) - playerY + (transVPY / 2))) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
   var cx = vpx2rx((sx2vpx(x) - playerX + (transVPX / 2)));
   var cy = vpy2ry((sy2vpy(y) - playerY + (transVPY / 2)));
