@@ -26,7 +26,7 @@ var gameplayHeight = 0;
 function initiate() {
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
-  var svg = document.getElementById("svg");
+  var canvas = document.getElementById("canvas");
   if (gameplayContainer.offsetWidth * viewport < gameplayContainer.offsetHeight) {
     gameplayWidth = gameplayContainer.offsetWidth;
     gameplayHeight = gameplayWidth * viewport;
@@ -36,13 +36,13 @@ function initiate() {
   }
   gameplay.style.width = gameplayWidth + "px";
   gameplay.style.height = gameplayHeight + "px";
+  canvas.width = gameplayWidth;
+  canvas.height = gameplayHeight;
 }
 
 function run() {
-  var svg = document.getElementById("svg");
-  svg.innerHTML = "";
   draw();
-  
+
   //window.requestAnimationFrame(run);
 }
 
@@ -93,6 +93,15 @@ function placeWall(x, y) {
 }
 
 function drawWall(x, y) {
-  var svg = document.getElementById("svg");
-  svg.innerHTML += "<rect x='" + vpx2rx((sx2vpx(x) - playerX + (transVPX / 2))) + "' y='" + vpy2ry((sy2vpy(y) - playerY + (transVPY / 2))) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
+  var ctx = document.getElementById("canvas").getContext("2d");
+  // svg.innerHTML += "<rect x='" + vpx2rx((sx2vpx(x) - playerX + (transVPX / 2))) + "' y='" + vpy2ry((sy2vpy(y) - playerY + (transVPY / 2))) + "' width='" + vpx2rx(blockSize) + "' height='" + vpy2ry(blockSize) + "' style='fill:blue;stroke-width:5;' />";
+  var cx = vpx2rx((sx2vpx(x) - playerX + (transVPX / 2)));
+  var cy = vpy2ry((sy2vpy(y) - playerY + (transVPY / 2)));
+  var width = vpx2rx(blockSize);
+  var height = vpy2ry(blockSize);
+  ctx.beginPath();
+  ctx.lineWidth = "4";
+  ctx.strokeStyle = "green";
+  ctx.rect(cx, cy, width, height);
+  ctx.stroke();
 }
