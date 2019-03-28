@@ -1,4 +1,3 @@
-
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
@@ -48,6 +47,24 @@ function run() {
   playerX += 0.1;
   playerY += 0.1;
   window.requestAnimationFrame(run);
+}
+
+function intro() {
+  var play = false;
+  var playSize = transVPY * 0.7;
+  var unpressingC = 1;
+  var pressingC = 0;
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
+  if (unpressingC > 0) {
+    unpressingC++;
+    // playSize...
+  } else if (pressingC > 0) {
+    pressingC++;
+  }
+  if (!play) {
+    window.requestAnimationFrame(run);
+  }
 }
 
 function draw() {
@@ -134,5 +151,14 @@ function drawBorders() {
   ctx.strokeStyle = "black";
   ctx.moveTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
   ctx.lineTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
+  ctx.stroke();
+}
+
+function drawPlay(s) {
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "green";
+  ctx.arc(vpx2rx(transVPX / 2), vpy2ry(transVPY / 2), vpy2ry(s), 0, 2 * Math.PI);
   ctx.stroke();
 }
