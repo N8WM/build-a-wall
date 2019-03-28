@@ -18,11 +18,17 @@ for (var i = 0; i < stageSize; i++) {
 }
 
 // viewport translated: (256, 144)
+var left = false;
+var right = false;
 
 var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
+  document.getElementById("left-btn").addEventListener("touchstart", function(){ left = true; });
+  document.getElementById("left-btn").addEventListener("touchend", function(){ left = false; play = 1; });
+  document.getElementById("right-btn").addEventListener("touchstart", function(){ right = true; });
+  document.getElementById("right-btn").addEventListener("touchend", function(){ right = false; play = 1; });
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
   var canvas = document.getElementById("canvs");
@@ -49,21 +55,46 @@ function run() {
   window.requestAnimationFrame(run);
 }
 
+var play = 0;
+var playSize = transVPY * 0.3;
+var playSizeOffset = 0;
+var unpressingC = 1;
+var pressingC = 0;
+var prevLeft = false;
+var prevRight = false;
+
 function intro() {
-  var play = false;
-  var playSize = transVPY * 0.7;
-  var unpressingC = 1;
-  var pressingC = 0;
+  if (play > 0) {
+    play++;
+  }
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
-  if (unpressingC > 0) {
-    unpressingC++;
-    // playSize...
-  } else if (pressingC > 0) {
-    pressingC++;
+  if (left || right && !(prevLeft || prevRight)) {
+    pressingC = 1;
+  } else if (prevLeft || prevRight && !(left || right)) {
+    unpressingC = 1;
   }
-  if (!play) {
-    window.requestAnimationFrame(run);
+  prevLeft = left;
+  prevRight = right;
+  if (unpressingC > 0 && unpressingC < 20) {
+    pressingC = 0;
+    unpressingC++;
+    playSizeOffset = -1 * (transVPY * 2 * -Math.sin(unpressingC) / (unpressingC * unpressingC * 5));
+  } else if (pressingC > 0) {
+    unpressingC = 0;
+    pressingC++;
+    playSizeOffset = (transVPY * 2 * -Math.sin(pressingC) / (pressingC * pressingC * 5) + (transVPY * 0.075));
+  } else {
+    pressingC = 0;
+    unpressingC = 0;
+    playSizeOffset = 0;
+  }
+  drawPlay(playSize + playSizeOffset);
+  if (play >= 20){
+    run();
+  } else {
+    window.requestAnimationFrame(intro);
+    console.log(play);
   }
 }
 
@@ -160,5 +191,13 @@ function drawPlay(s) {
   ctx.lineWidth = "3";
   ctx.strokeStyle = "green";
   ctx.arc(vpx2rx(transVPX / 2), vpy2ry(transVPY / 2), vpy2ry(s), 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "green";
+  ctx.moveTo(vpx2rx((transVPX / 2)-(s * 0.20)), vpy2ry((transVPY / 2)-(s * 0.25)));
+  ctx.lineTo(vpx2rx((transVPX / 2)+(s * 0.25)), vpy2ry(transVPY / 2));
+  ctx.lineTo(vpx2rx((transVPX / 2)-(s * 0.20)), vpy2ry((transVPY / 2)+(s * 0.25)));
+  ctx.lineTo(vpx2rx((transVPX / 2)-(s * 0.20)), vpy2ry((transVPY / 2)-(s * 0.25)));
   ctx.stroke();
 }
