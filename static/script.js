@@ -69,9 +69,9 @@ function intro() {
   }
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
-  if (left || right && !(prevLeft || prevRight)) {
+  if ((left && !prevLeft) || (right && !prevRight)) {
     pressingC = 1;
-  } else if (prevLeft || prevRight && !(left || right)) {
+  } else if ((prevLeft && !left) || (prevRight && !right)) {
     unpressingC = 1;
   }
   prevLeft = left;
