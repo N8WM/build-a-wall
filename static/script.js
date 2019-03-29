@@ -91,7 +91,8 @@ function intro() {
   }
   drawPlay(playSize + playSizeOffset);
   if (play >= 20){
-    run();
+    //run();
+    window.requestAnimationFrame(intro);
   } else {
     window.requestAnimationFrame(intro);
   }
