@@ -94,7 +94,6 @@ function intro() {
     run();
   } else {
     window.requestAnimationFrame(intro);
-    console.log(play);
   }
 }
 
