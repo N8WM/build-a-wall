@@ -30,10 +30,10 @@ var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
-  document.getElementById("left-btn").addEventListener("touchstart", function(){ left = true; });
-  document.getElementById("left-btn").addEventListener("touchend", function(){ left = false; play = 1; });
-  document.getElementById("right-btn").addEventListener("touchstart", function(){ right = true; });
-  document.getElementById("right-btn").addEventListener("touchend", function(){ right = false; play = 1; });
+  document.getElementById("left-btn").addEventListener("mousedown", function(){ left = true; });
+  document.getElementById("left-btn").addEventListener("mouseup", function(){ left = false; play = 1; });
+  document.getElementById("right-btn").addEventListener("mousedown", function(){ right = true; });
+  document.getElementById("right-btn").addEventListener("mouseup", function(){ right = false; play = 1; });
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
   var canvas = document.getElementById("canvs");
