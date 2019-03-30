@@ -1,3 +1,5 @@
+var socket = io();
+
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
@@ -7,6 +9,8 @@ var blockSize = 16;
 var playerX = 0;
 var playerY = 0;
 var playerD = 90;
+var color = "black";
+var roomKey = "";
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
@@ -20,6 +24,7 @@ for (var i = 0; i < stageSize; i++) {
 // viewport translated: (256, 144)
 var left = false;
 var right = false;
+var joinValid = false;
 
 var gameplayWidth = 0;
 var gameplayHeight = 0;
@@ -90,12 +95,31 @@ function intro() {
     playSizeOffset = 0;
   }
   drawPlay(playSize + playSizeOffset);
-  if (play >= 20){
-    //run();
-    window.requestAnimationFrame(intro);
+  if (play >= 20) {
+    socket.emit('join');
+    join();
   } else {
     window.requestAnimationFrame(intro);
   }
+}
+
+function join() {
+  loading();
+  if (!joinValid) {
+    window.requestAnimationFrame(join);
+  } else {
+    run();
+  }
+}
+
+socket.on('join valid', function(playerColor, playerRoomKey){
+  color = playerColor;
+  roomKey = playerRoomKey;
+  joinValid = true;
+});
+
+function loading() {
+
 }
 
 function draw() {
@@ -152,7 +176,7 @@ function drawWall(x, y) {
   var height = vpy2ry(blockSize);
   ctx.beginPath();
   ctx.lineWidth = "3";
-  ctx.strokeStyle = "green";
+  ctx.strokeStyle = color;
   ctx.rect(cx, cy, width, height);
   ctx.stroke();
 }

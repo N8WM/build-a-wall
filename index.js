@@ -14,6 +14,12 @@ io.on('connection', function(socket){
   io.emit('broadcast', ####); // emit an event to all connected sockets
   socket.on('reply', function(){ #### }); // listen to the event
   **/
+  socket.on('join', function(){
+    var colors = ["red", "green", "blue", "purple"];
+    var color = colors[Math.floor(Math.random()*colors.length)];
+    var roomKey = "1234";
+    socket.emit('join valid', '{ "playerColor":"'+color+'","playerRoomKey":"'+roomKey+'" }');
+  });
   console.log("load");
 });
 
