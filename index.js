@@ -18,7 +18,7 @@ io.on('connection', function(socket){
     var colors = ["red", "green", "blue", "purple"];
     var color = colors[Math.floor(Math.random()*colors.length)];
     var roomKey = "1234";
-    socket.emit('join valid', '{ "playerColor":"'+color+'","playerRoomKey":"'+roomKey+'" }');
+    socket.emit('join valid', color, roomKey);
   });
   console.log("load");
 });
