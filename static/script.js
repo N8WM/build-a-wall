@@ -1,5 +1,8 @@
 var socket = io();
 
+var joystick = new VirtualJoystick();
+opts.limitStickTravel = true;
+
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
@@ -9,14 +12,14 @@ var blockSize = 16;
 var playerX = 0;
 var playerY = 0;
 var playerD = 90;
-var color = "black";
+var playerColor = "black";
 var roomKey = "";
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
   var tmp = [];
   for (var j = 0; j < stageSize; j++) {
-    tmp.push((Math.floor(Math.random()*5)===2)?1:0);
+    tmp.push(0);
   }
   blocks.push(tmp);
 }
@@ -25,6 +28,7 @@ for (var i = 0; i < stageSize; i++) {
 var left = false;
 var right = false;
 var joinValid = false;
+var dots = 0.0;
 
 var gameplayWidth = 0;
 var gameplayHeight = 0;
@@ -112,13 +116,19 @@ function join() {
   }
 }
 
-socket.on('join valid', function(playerColor, playerRoomKey){
-  color = playerColor;
-  roomKey = playerRoomKey;
+socket.on('join valid', function(pColor, pRoomKey){
+  color = pColor;
+  roomKey = pRoomKey;
   joinValid = true;
 });
 
 function loading() {
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
+  ctx.font = vpy2ry(20) + "px Arial";
+  var loadingDots = (Math.floor(dots)===0)?"":(Math.floor(dots)===1)?".":(Math.floor(dots)===2)?"..":(Math.floor(dots)===3)?"...":"....";
+  dots = (dots >= 5)?0.0:(dots + 0.1);
+  ctx.fillText("Loading" + loadingDots, vpx2rx(5), vpy2ry(transVPY - 5));
 
 }
 
@@ -164,11 +174,11 @@ function vpy2sy(y) {
   return y / blockSize;
 }
 
-function placeWall(x, y) {
-  blocks.push[vpx2sx(x)][vpy2sy(y)];
+function placeWall(x, y, color) {
+  blocks[vpx2sx(x)][vpy2sy(y)] = color;
 }
 
-function drawWall(x, y) {
+function drawWall(x, y, color) {
   var ctx = document.getElementById("canvs").getContext("2d");
   var cx = vpx2rx((sx2vpx(x) - playerX + (transVPX / 2)));
   var cy = vpy2ry((sy2vpy(y) - playerY + (transVPY / 2)));
