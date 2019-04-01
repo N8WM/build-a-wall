@@ -1,7 +1,7 @@
 var socket = io();
 
-var joystick = new VirtualJoystick();
-opts.limitStickTravel = true;
+/* var joystick = new VirtualJoystick();
+opts.limitStickTravel = true; */
 
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
