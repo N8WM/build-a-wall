@@ -5,7 +5,7 @@ var options = {
   multitouch: false,
   mode: 'dynamic'
 };
-var manager = require('nipplejs').create(options);
+var manager = nipplejs.create(options); ;
 //opts.limitStickTravel = true; */
 
 var viewport = (9.0/16.0);
