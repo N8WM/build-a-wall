@@ -1,7 +1,12 @@
 var socket = io();
-
-/* var joystick = new VirtualJoystick();
-opts.limitStickTravel = true; */
+var options = {
+  zone: document.getElementById("gameplay"),                  // active zone
+  color: "lightblue",
+  multitouch: false,
+  mode: 'dynamic'
+};
+var manager = require('nipplejs').create(options);
+//opts.limitStickTravel = true; */
 
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
