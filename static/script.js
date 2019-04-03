@@ -5,7 +5,7 @@ var options = {
   multitouch: false,
   mode: 'dynamic'
 };
-var manager = nipplejs.create(options); ;
+var manager = nipplejs.create(options);
 //opts.limitStickTravel = true; */
 
 var viewport = (9.0/16.0);
@@ -19,6 +19,10 @@ var playerY = 0;
 var playerD = 90;
 var playerColor = "black";
 var roomKey = "";
+var up = false;
+var right = false;
+var down = false;
+var left = false;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
@@ -30,8 +34,7 @@ for (var i = 0; i < stageSize; i++) {
 }
 
 // viewport translated: (256, 144)
-var left = false;
-var right = false;
+var touch = false;
 var joinValid = false;
 var dots = 0.0;
 
@@ -39,10 +42,8 @@ var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
-  document.getElementById("left-btn").addEventListener("touchstart", function(){ left = true; });
-  document.getElementById("left-btn").addEventListener("touchend", function(){ left = false; play = 1; });
-  document.getElementById("right-btn").addEventListener("touchstart", function(){ right = true; });
-  document.getElementById("right-btn").addEventListener("touchend", function(){ right = false; play = 1; });
+  document.getElementById("input-container").addEventListener("touchstart", function(){ touch = true; });
+  document.getElementById("input-container").addEventListener("touchend", function(){ touch = false; play = 1; });
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
   var canvas = document.getElementById("canvs");
@@ -74,8 +75,7 @@ var playSize = transVPY * 0.3;
 var playSizeOffset = 0;
 var unpressingC = 1;
 var pressingC = 0;
-var prevLeft = false;
-var prevRight = false;
+var prevTouch = false;
 
 function intro() {
   if (play > 0) {
@@ -83,13 +83,12 @@ function intro() {
   }
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
-  if ((left && !prevLeft) || (right && !prevRight)) {
+  if (touch && !prevTouch) {
     pressingC = 1;
-  } else if ((prevLeft && !left) || (prevRight && !right)) {
+  } else if (prevTouch && !touch) {
     unpressingC = 1;
   }
-  prevLeft = left;
-  prevRight = right;
+  prevTouch = touch;
   if (unpressingC > 0 && unpressingC < 20) {
     pressingC = 0;
     unpressingC++;
@@ -122,7 +121,7 @@ function join() {
 }
 
 socket.on('join valid', function(pColor, pRoomKey){
-  color = pColor;
+  playerColor = pColor;
   roomKey = pRoomKey;
   joinValid = true;
 });
