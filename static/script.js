@@ -4,7 +4,8 @@ var options = {
   zone: document.getElementById("input-container"),                  // active zone
   color: "lightblue",
   multitouch: false,
-  mode: 'dynamic'
+  mode: 'dynamic',
+  size: vpx2rx(transVPY / 3);
 };
 var manager;
 
