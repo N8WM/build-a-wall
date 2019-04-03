@@ -55,14 +55,14 @@ function initiate() {
 }
 
 function run() {
+  var options = {
+    zone: document.getElementById("input-container"),                  // active zone
+    color: "lightblue",
+    size: vpy2ry(transVPY / 3),
+    multitouch: false,
+    mode: 'dynamic'
+  };
   if (!manager) {
-    var options = {
-      zone: document.getElementById("input-container"),                  // active zone
-      color: "lightblue",
-      size: transVPY / 3,
-      multitouch: false,
-      mode: 'dynamic'
-    };
     manager = nipplejs.create(options);
     console.log("managed!");
   }
