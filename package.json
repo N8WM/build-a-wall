@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "nipplejs": "^0.8.1",
     "socket.io": "^2.1.1"
   }
 }
