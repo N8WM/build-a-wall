@@ -59,7 +59,7 @@ function run() {
     var options = {
       zone: document.getElementById("input-container"),                  // active zone
       color: "lightblue",
-      size: transVPY / 3,
+      size: vpy2ry(transVPY / 3),
       multitouch: false,
       mode: 'dynamic'
     };
