@@ -3,9 +3,9 @@ var socket = io();
 var options = {
   zone: document.getElementById("input-container"),                  // active zone
   color: "lightblue",
+  size: vpx2rx(transVPY / 3),
   multitouch: false,
-  mode: 'dynamic',
-  size: vpx2rx(transVPY / 3)
+  mode: 'dynamic'
 };
 var manager;
 
