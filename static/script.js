@@ -5,7 +5,7 @@ var options = {
   color: "lightblue",
   multitouch: false,
   mode: 'dynamic',
-  size: vpx2rx(transVPY / 3);
+  size: vpx2rx(transVPY / 3)
 };
 var manager;
 
