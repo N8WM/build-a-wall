@@ -65,6 +65,10 @@ function run() {
     };
     manager = nipplejs.create(options);
   }
+  manager.on('dir:up', function (evt, data) {
+    up = true;
+    console.log("up");
+  });
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   draw();
