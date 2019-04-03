@@ -1,5 +1,11 @@
 var socket = io();
 
+var options = {
+  zone: document.getElementById("input-container"),                  // active zone
+  color: "lightblue",
+  multitouch: false,
+  mode: 'dynamic'
+};
 var manager;
 
 var viewport = (9.0/16.0);
@@ -36,13 +42,6 @@ var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
-  var options = {
-    zone: document.getElementById("input-container"),                  // active zone
-    color: "lightblue",
-    multitouch: false,
-    mode: 'dynamic'
-  };
-  manager = nipplejs.create(options);
   document.getElementById("input-container").addEventListener("touchstart", function(){ touch = true; });
   document.getElementById("input-container").addEventListener("touchend", function(){ touch = false; play = 1; });
   var gameplay = document.getElementById("gameplay");
@@ -62,6 +61,9 @@ function initiate() {
 }
 
 function run() {
+  if (!manager) {
+    manager = nipplejs.create(options);
+  }
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   draw();
