@@ -64,6 +64,7 @@ function run() {
       mode: 'dynamic'
     };
     manager = nipplejs.create(options);
+    console.log("managed!");
   }
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
