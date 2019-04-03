@@ -36,8 +36,8 @@ var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
-  document.getElementById("input-container").addEventListener("onmousedown", function(){ touch = true; });
-  document.getElementById("input-container").addEventListener("onmouseup", function(){ touch = false; play = 1; });
+  document.getElementById("input-container").addEventListener("mousedown", function(){ touch = true; });
+  document.getElementById("input-container").addEventListener("mouseup", function(){ touch = false; play = 1; });
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
   var canvas = document.getElementById("canvs");
