@@ -65,12 +65,33 @@ function run() {
     };
     manager = nipplejs.create(options);
   }
-  manager.on('dir:up', function (evt, data) {
+  manager.on('dir:up', function() {
     up = true;
-    console.log("up");
+    right = false;
+    down = false;
+    left = false;
+  });
+  manager.on('dir:right', function() {
+    right = true;
+    up = false;
+    down = false;
+    left = false;
+  });
+  manager.on('dir:down', function() {
+    down = true;
+    up = false;
+    right = false;
+    left = false;
+  });
+  manager.on('dir:left', function() {
+    left = true;
+    up = false;
+    right = false;
+    down = false;
   });
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
+  playerColor = (up?"green":right?"blue":down?"red":"purple");
   draw();
   drawBorders()
   playerX += 0.1;
@@ -147,8 +168,8 @@ function loading() {
 function draw() {
   for (var i = 0; i < blocks.length; i++) {
     for (var j = 0; j < blocks[0].length; j++) {
-      if (blocks[i][j] === 1) {
-        drawWall(i, j);
+      if (blocks[i][j] !== 1) { // testing-- change "!==" back to "===" for final product.
+        drawWall(i, j, playerColor);
       }
     }
   }
