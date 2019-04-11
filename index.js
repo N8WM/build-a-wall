@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 8080;//process.env.PORT;
+const port = /*8080;*/process.env.PORT;
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -8,7 +8,6 @@ var colors = ["green", "blue", "red", "purple"];
 var stageSize = 64;
 var rooms = new Rooms();
 
-/*
 function Rooms() {                     // an object that holds rooms
   this.rooms = []
   function addRoom(r) {                // takes room key, generates a room with that key
@@ -101,7 +100,6 @@ function generateRoomKey() {
   }
   return tmp;
 }
-*/
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/template/index.html');
