@@ -1,6 +1,7 @@
 var socket = io();
 
 var manager;
+var colors = ["green", "blue", "red", "purple"];
 
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
@@ -36,8 +37,8 @@ var gameplayWidth = 0;
 var gameplayHeight = 0;
 
 function initiate() {
-  document.getElementById("input-container").addEventListener("touchstart", function(){ touch = true; });
-  document.getElementById("input-container").addEventListener("touchend", function(){ touch = false; play = 1; });
+  document.getElementById("input-container").addEventListener("mousedown", function(){ touch = true; });
+  document.getElementById("input-container").addEventListener("mouseup", function(){ touch = false; play = 1; });
   var gameplay = document.getElementById("gameplay");
   var gameplayContainer = document.getElementById("gameplay-container");
   var canvas = document.getElementById("canvs");
@@ -60,9 +61,9 @@ function run() {
       zone: document.getElementById("input-container"),                  // active zone
       color: "lightblue",
       size: vpy2ry(transVPY / 3),
-      fadeTime: 50,
       multitouch: false,
-      mode: 'dynamic'
+      position: {right: vpx2rx(transVPX/7)+'px', bottom: vpx2rx(transVPX/7)+'px'},
+      mode: 'static'
     };
     manager = nipplejs.create(options);
   }
@@ -90,9 +91,15 @@ function run() {
     right = false;
     down = false;
   });
+  manager.on('end', function() {
+    left = false;
+    up = false;
+    right = false;
+    down = false;
+  });
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
-  playerColor = (up?"green":right?"blue":down?"red":"purple");
+  playerColor = (up?"green":right?"blue":down?"red":left?"purple":"black");
   draw();
   drawBorders()
   playerX += 0.1;
