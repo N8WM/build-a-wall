@@ -62,8 +62,8 @@ function run() {
       color: "lightblue",
       size: vpy2ry(transVPY / 3),
       multitouch: false,
-      position: {right: vpx2rx(transVPX/7)+'px', bottom: vpx2rx(transVPX/7)+'px'},
-      mode: 'static'
+      //position: {right: vpx2rx(transVPX/7)+'px', bottom: vpx2rx(transVPX/7)+'px'},
+      mode: 'dynamic'
     };
     manager = nipplejs.create(options);
   }
