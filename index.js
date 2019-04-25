@@ -138,7 +138,7 @@ io.on('connection', function(socket) {
       var tmpKey = rooms.addRoom();
       console.log("add room ok: " + tmpKey + " ... " + rooms.rooms.length);
       var tmpColor = rooms.addPlayer(tmpKey);
-      console.log("add player ok: " + color);
+      console.log("add player ok: " + tmpColor);
       if (tmpColor) {
         socket.emit('join valid', tmpColor, tmpKey, rooms);
       } else {
