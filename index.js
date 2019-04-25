@@ -28,12 +28,12 @@ function Rooms() {                     // an object that holds rooms
     }
     return false;
   };
-  this.getRoom = function (k) {                // takes room key, returns room
-    /*for (var i = 0; i < this.rooms.length; i++) {
-      if (this.rooms[i].getRoomKey() === k) {
+  this.getRoom = function (rktmps) {                // takes room key, returns room
+    for (var i = 0; i < this.rooms.length; i++) {
+      if (this.rooms[i].getRoomKey() === rktmps) {
         return this.rooms[i];
       }
-    }*/
+    }
     return false;
   };
   this.getVacantRooms = function () {          // returns an array of unfilled room keys
@@ -86,15 +86,15 @@ function Room(roomKey) {                       // an object that stores the nece
     return this.colors.length < colors.length;
   };
   this.addPlayer = function () {
-    /*if (this.isVacant()) {
+    if (this.isVacant()) {
       var ctmp = Math.floor(Math.random()*colors.length);
       while (this.colors.indexOf(ctmp)!== -1) {
         ctmp = Math.floor(Math.random()*colors.length);
       }
-      */var ctmp="green";this.colors.push(ctmp);
-      return ctmp;/*
+      this.colors.push(ctmp);
+      return ctmp;
     }
-    return false;*/
+    return false;
   };
 }
 
@@ -136,7 +136,7 @@ io.on('connection', function(socket) {
     else {
       console.log("else ok");
       var tmpKey = rooms.addRoom();
-      console.log("add room ok: " + tmpKey);
+      console.log("add room ok: " + tmpKey + " ... " + rooms);
       var tmpColor = rooms.addPlayer(tmpKey);
       console.log("add player ok: " + color);
       if (tmpColor) {
