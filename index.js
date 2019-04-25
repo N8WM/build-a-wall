@@ -10,19 +10,28 @@ var rooms = new Rooms();
 
 function Rooms() {                     // an object that holds rooms
   this.rooms = []
-  function addRoom(r) {                // takes room key, generates a room with that key
+  this.addRoom = function (r) {                // takes room key, generates a room with that key
     this.rooms.push(r);
   }
-  function addRoom() {                 // generates a room with random room key
+  this.addRoom = function() {                 // generates a room with random room key, returns key
     var rtmp = generateRoomKey();
     while (!this.getRoom(rtmp)) {
       rtmp = generateRoomKey();
     }
     var nr = new Room(rtmp);
     this.rooms.push(nr);
-    return nr;
+    return rtmp;
   }
-  function getRoom(k) {                // takes room key, returns room
+  this.removeRoom = function (rrk) {           // takes room key, removes room and returns true if removed
+    for (var i = 0; i < this.rooms.length; i++) {
+      if (this.rooms[i].getRoomKey() === rrk) {
+        this.rooms.splice(i, 1);
+        return true;
+      }
+    }
+    return false;
+  }
+  this.getRoom = function (k) {                // takes room key, returns room
     for (var r in this.rooms) {
       if (room.getRoomKey() === k) {
         return r;
@@ -30,16 +39,16 @@ function Rooms() {                     // an object that holds rooms
     }
     return false;
   }
-  function getVacantRooms() {          // returns an array of unfilled rooms
+  this.getVacantRooms = function () {          // returns an array of unfilled room keys
     var vr = [];
     for (var vrtmp in this.rooms) {
       if (r.isVacant()) {
-        vr.push(vrtmp);
+        vr.push(vrtmp.getRoomKey());
       }
     }
     return vr;
   }
-  function addPlayer(apk) {
+  this.addPlayer = function (apk) {            // add a player to the room with the specified key, returns color
     return this.getRoom(apk).addPlayer();
   }
 }
@@ -58,28 +67,28 @@ function Room(roomKey) {                       // an object that stores the nece
   };
   this.colors = [];
   this.time = 300;
-  function getRoomKey() {
+  this.getRoomKey = function () {
     return this.roomKey;
   }
-  function getStage() {
+  this.getStage = function () {
     return this.stage;
   }
-  function addBlock(x, y, c) {
+  this.addBlock = function (x, y, c) {
     this.stage[x][y] = c;
   }
-  function getTime() {
+  this.getTime = function () {
     return this.time;
   }
-  function getColors() {
+  this.getColors = function () {
     return this.colors;
   }
-  function addColor(ac) {
+  this.addColor = function (ac) {
     this.colors.push(ac);
   }
-  function isVacant() {
+  this.isVacant = function () {
     return this.colors.length < colors.length;
   }
-  function addPlayer() {
+  this.addPlayer = function () {
     if (this.isVacant()) {
       var ctmp = Math.floor(Math.random()*colors.length);
       while (this.colors.indexOf(ctmp)!== -1) {
@@ -112,9 +121,27 @@ io.on('connection', function(socket) {
   socket.on('reply', function(){ #### }); // listen to the event
   **/
   socket.on('join', function() {
-    var color = colors[Math.floor(Math.random()*colors.length)];
+    /*var color = colors[Math.floor(Math.random()*colors.length)];
     var roomKey = "1234";
-    socket.emit('join valid', color, roomKey);
+    socket.emit('join valid', color, roomKey);*/
+    var vrooms = rooms.getVacantRooms();
+    if (vrooms.length > 0) {
+      var tmpColor = rooms.addPlayer(vrooms[0]);
+      if (tmpColor) {
+        socket.emit('join valid', tmpColor, vrooms[0], rooms);
+      } else {
+        socket.emit('join invalid');
+      }
+    }
+    else {
+      var tmpKey = rooms.addRoom();
+      var tmpColor = rooms.addPlayer(tmpKey);
+      if (tmpColor) {
+        socket.emit('join valid', tmpColor, tmpKey, rooms);
+      } else {
+        socket.emit('join invalid');
+      }
+    }
   });
 
   console.log("load");

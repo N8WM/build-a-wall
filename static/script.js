@@ -31,6 +31,8 @@ for (var i = 0; i < stageSize; i++) {
 // viewport translated: (256, 144)
 var touch = false;
 var joinValid = false;
+var joinInvalid = false;
+var debugObj;
 var dots = 0.0;
 
 var gameplayWidth = 0;
@@ -150,18 +152,41 @@ function intro() {
 
 function join() {
   loading();
-  if (!joinValid) {
+  if (!joinValid && !joinInvalid) {
     window.requestAnimationFrame(join);
+  } else if (joinInvalid) {
+    end();
   } else {
-    run();
+    tempRun();   // to be changed to "run();" in the end
   }
 }
 
-socket.on('join valid', function(pColor, pRoomKey){
+socket.on('join valid', function(pColor, pRoomKey, pRooms) {
   playerColor = pColor;
   roomKey = pRoomKey;
   joinValid = true;
+  debugObj = pRooms;
 });
+
+socket.on('join invalid', function() {
+  joinInvalid = true;
+});
+
+function end() {
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
+  ctx.font = vpy2ry(20) + "px Arial";
+  ctx.strokeStyle = "red";
+  ctx.fillText("Error: something went wrong!", vpx2rx(5), vpy2ry(transVPY - 5));
+}
+
+function tempRun() {
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
+  ctx.font = vpy2ry(20) + "px Arial";
+  ctx.strokeStyle = "green";
+  ctx.fillText(debugObj, vpx2rx(5), vpy2ry(transVPY - 5));
+}
 
 function loading() {
   var ctx = document.getElementById("canvs").getContext("2d");
@@ -170,7 +195,6 @@ function loading() {
   var loadingDots = (Math.floor(dots)===0)?"":(Math.floor(dots)===1)?".":(Math.floor(dots)===2)?"..":(Math.floor(dots)===3)?"...":"....";
   dots = (dots >= 5)?0.0:(dots + 0.1);
   ctx.fillText("Loading" + loadingDots, vpx2rx(5), vpy2ry(transVPY - 5));
-
 }
 
 function draw() {
