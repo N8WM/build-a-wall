@@ -29,11 +29,11 @@ function Rooms() {                     // an object that holds rooms
     return false;
   };
   this.getRoom = function (k) {                // takes room key, returns room
-    for (var i = 0; i < this.rooms.length; i++) {
+    /*for (var i = 0; i < this.rooms.length; i++) {
       if (this.rooms[i].getRoomKey() === k) {
         return this.rooms[i];
       }
-    }
+    }*/
     return false;
   };
   this.getVacantRooms = function () {          // returns an array of unfilled room keys
