@@ -86,8 +86,9 @@ function Room(roomKey) {                       // an object that stores the nece
     return this.colors.length < colors.length;
   };
   this.addPlayer = function () {
+    var ctmp;
     if (this.isVacant()) {
-      var ctmp = Math.floor(Math.random()*colors.length);
+      ctmp = Math.floor(Math.random()*colors.length);
       while (this.colors.indexOf(ctmp)!== -1) {
         ctmp = Math.floor(Math.random()*colors.length);
       }
@@ -126,9 +127,9 @@ io.on('connection', function(socket) {
     if (vrooms.length > 0) {
       console.log("if ok");
       var tmpColor = rooms.addPlayer(vrooms[0]);
-      console.log("add player ok");
+      console.log("add player ok: " + tmpColor);
       if (tmpColor) {
-        socket.emit('join valid', tmpColor, vrooms[0], rooms);
+        socket.emit('join valid', tmpColor, vrooms[0]);
       } else {
         socket.emit('join invalid');
       }
@@ -140,7 +141,7 @@ io.on('connection', function(socket) {
       var tmpColor = rooms.addPlayer(tmpKey);
       console.log("add player ok: " + tmpColor);
       if (tmpColor) {
-        socket.emit('join valid', tmpColor, tmpKey, rooms);
+        socket.emit('join valid', tmpColor, tmpKey);
       } else {
         socket.emit('join invalid');
       }

@@ -32,7 +32,7 @@ for (var i = 0; i < stageSize; i++) {
 var touch = false;
 var joinValid = false;
 var joinInvalid = false;
-var debugObj;
+var debugObj = "It worked!";
 var dots = 0.0;
 
 var gameplayWidth = 0;
@@ -161,11 +161,10 @@ function join() {
   }
 }
 
-socket.on('join valid', function(pColor, pRoomKey, pRooms) {
+socket.on('join valid', function(pColor, pRoomKey) {
   playerColor = pColor;
   roomKey = pRoomKey;
   joinValid = true;
-  debugObj = pRooms;
 });
 
 socket.on('join invalid', function() {
@@ -176,7 +175,7 @@ function end() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   ctx.font = vpy2ry(20) + "px Arial";
-  ctx.strokeStyle = "red";
+  ctx.fillStyle = "red";
   ctx.fillText("Error: something went wrong!", vpx2rx(5), vpy2ry(transVPY - 5));
 }
 
@@ -184,7 +183,7 @@ function tempRun() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   ctx.font = vpy2ry(20) + "px Arial";
-  ctx.strokeStyle = "green";
+  ctx.fillStyle = "green";
   ctx.fillText(debugObj, vpx2rx(5), vpy2ry(transVPY - 5));
 }
 
