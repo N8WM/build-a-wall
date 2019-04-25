@@ -38,9 +38,9 @@ function Rooms() {                     // an object that holds rooms
   };
   this.getVacantRooms = function () {          // returns an array of unfilled room keys
     var vr = [];
-    for (var vrtmp in this.rooms) {
-      if (vrtmp.isVacant()) {
-        vr.push(vrtmp.getRoomKey());
+    for (var i = 0; i < this.rooms.length; i++) {
+      if (this.rooms[i].isVacant()) {
+        vr.push(this.rooms[i].getRoomKey());
       }
     }
     return vr;
