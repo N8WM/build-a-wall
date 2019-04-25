@@ -9,10 +9,10 @@ var stageSize = 64;
 var rooms = new Rooms();
 
 function Rooms() {                     // an object that holds rooms
-  this.rooms = []
+  this.rooms = [];
   this.addRoom = function (r) {                // takes room key, generates a room with that key
     this.rooms.push(r);
-  }
+  };
   this.addRoom = function() {                 // generates a room with random room key, returns key
     var rtmp = generateRoomKey();
     while (!this.getRoom(rtmp)) {
@@ -21,7 +21,7 @@ function Rooms() {                     // an object that holds rooms
     var nr = new Room(rtmp);
     this.rooms.push(nr);
     return rtmp;
-  }
+  };
   this.removeRoom = function (rrk) {           // takes room key, removes room and returns true if removed
     for (var i = 0; i < this.rooms.length; i++) {
       if (this.rooms[i].getRoomKey() === rrk) {
@@ -30,7 +30,7 @@ function Rooms() {                     // an object that holds rooms
       }
     }
     return false;
-  }
+  };
   this.getRoom = function (k) {                // takes room key, returns room
     for (var r in this.rooms) {
       if (room.getRoomKey() === k) {
@@ -38,7 +38,7 @@ function Rooms() {                     // an object that holds rooms
       }
     }
     return false;
-  }
+  };
   this.getVacantRooms = function () {          // returns an array of unfilled room keys
     var vr = [];
     for (var vrtmp in this.rooms) {
@@ -47,10 +47,10 @@ function Rooms() {                     // an object that holds rooms
       }
     }
     return vr;
-  }
+  };
   this.addPlayer = function (apk) {            // add a player to the room with the specified key, returns color
     return this.getRoom(apk).addPlayer();
-  }
+  };
 }
 
 function Room(roomKey) {                       // an object that stores the necessary values for a room
@@ -69,25 +69,25 @@ function Room(roomKey) {                       // an object that stores the nece
   this.time = 300;
   this.getRoomKey = function () {
     return this.roomKey;
-  }
+  };
   this.getStage = function () {
     return this.stage;
-  }
+  };
   this.addBlock = function (x, y, c) {
     this.stage[x][y] = c;
-  }
+  };
   this.getTime = function () {
     return this.time;
-  }
+  };
   this.getColors = function () {
     return this.colors;
-  }
+  };
   this.addColor = function (ac) {
     this.colors.push(ac);
-  }
+  };
   this.isVacant = function () {
     return this.colors.length < colors.length;
-  }
+  };
   this.addPlayer = function () {
     if (this.isVacant()) {
       var ctmp = Math.floor(Math.random()*colors.length);
@@ -98,7 +98,7 @@ function Room(roomKey) {                       // an object that stores the nece
       return ctmp;
     }
     return false;
-  }
+  };
 }
 
 function generateRoomKey() {
