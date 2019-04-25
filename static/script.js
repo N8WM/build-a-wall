@@ -157,7 +157,7 @@ function join() {
   } else if (joinInvalid) {
     end();
   } else {
-    tempRun();   // to be changed to "run();" in the end
+    run();   // to be changed to "run();" in the end
   }
 }
 
