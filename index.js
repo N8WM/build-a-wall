@@ -136,7 +136,7 @@ io.on('connection', function(socket) {
     else {
       console.log("else ok");
       var tmpKey = rooms.addRoom();
-      console.log("add room ok: " + tmpKey + " ... " + rooms);
+      console.log("add room ok: " + tmpKey + " ... " + rooms.length);
       var tmpColor = rooms.addPlayer(tmpKey);
       console.log("add player ok: " + color);
       if (tmpColor) {
