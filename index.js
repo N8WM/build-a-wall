@@ -86,15 +86,15 @@ function Room(roomKey) {                       // an object that stores the nece
     return this.colors.length < colors.length;
   };
   this.addPlayer = function () {
-    if (this.isVacant()) {
+    /*if (this.isVacant()) {
       var ctmp = Math.floor(Math.random()*colors.length);
       while (this.colors.indexOf(ctmp)!== -1) {
         ctmp = Math.floor(Math.random()*colors.length);
       }
-      this.colors.push(ctmp);
-      return ctmp;
+      */var ctmp="green";this.colors.push(ctmp);
+      return ctmp;/*
     }
-    return false;
+    return false;*/
   };
 }
 
