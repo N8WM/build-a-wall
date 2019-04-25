@@ -12,9 +12,9 @@ function Rooms() {                     // an object that holds rooms
   this.rooms = [];
   this.addRoom = function() {                 // generates a room with random room key, returns key
     var rtmp = generateRoomKey();
-    /*while (!this.getRoom(rtmp)) {
+    while (!this.getRoom(rtmp)) {
       rtmp = generateRoomKey();
-    }*/
+    }
     var nr = new Room(rtmp);
     this.rooms.push(nr);
     return rtmp;
