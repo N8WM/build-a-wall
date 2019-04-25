@@ -88,9 +88,9 @@ function Room(roomKey) {                       // an object that stores the nece
   this.addPlayer = function () {
     var ctmp;
     if (this.isVacant()) {
-      ctmp = Math.floor(Math.random()*colors.length);
+      ctmp = colors[Math.floor(Math.random()*colors.length)];
       while (this.colors.indexOf(ctmp)!== -1) {
-        ctmp = Math.floor(Math.random()*colors.length);
+        ctmp = colors[Math.floor(Math.random()*colors.length)];
       }
       this.colors.push(ctmp);
       return ctmp;

@@ -175,7 +175,7 @@ function end() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   ctx.font = vpy2ry(20) + "px Arial";
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "darkred";
   ctx.fillText("Error: something went wrong!", vpx2rx(5), vpy2ry(transVPY - 5));
 }
 
@@ -183,8 +183,8 @@ function tempRun() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   ctx.font = vpy2ry(20) + "px Arial";
-  ctx.fillStyle = "green";
-  ctx.fillText(debugObj, vpx2rx(5), vpy2ry(transVPY - 5));
+  ctx.fillStyle = playerColor;
+  ctx.fillText("Success! " + roomKey + ", " + playerColor, vpx2rx(5), vpy2ry(transVPY - 5));
 }
 
 function loading() {
