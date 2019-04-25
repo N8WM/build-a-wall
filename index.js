@@ -10,9 +10,6 @@ var rooms = new Rooms();
 
 function Rooms() {                     // an object that holds rooms
   this.rooms = [];
-  this.addRoom = function (r) {                // takes room key, generates a room with that key
-    this.rooms.push(r);
-  };
   this.addRoom = function() {                 // generates a room with random room key, returns key
     var rtmp = generateRoomKey();
     while (!this.getRoom(rtmp)) {
