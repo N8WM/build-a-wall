@@ -29,8 +29,8 @@ function Rooms() {                     // an object that holds rooms
     return false;
   };
   this.getRoom = function (k) {                // takes room key, returns room
-    for (var r in this.rooms) {
-      if (room.getRoomKey() === k) {
+    for (r in this.rooms) {
+      if (r.getRoomKey() === k) {
         return r;
       }
     }
