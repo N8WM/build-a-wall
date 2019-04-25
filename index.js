@@ -122,8 +122,9 @@ io.on('connection', function(socket) {
     var roomKey = "1234";
     socket.emit('join valid', color, roomKey);*/
     var vrooms = rooms.getVacantRooms();
-    console.log("vacant rooms ok");
+    console.log("vacant rooms ok: " + vrooms);
     if (vrooms.length > 0) {
+      console.log("if ok");
       var tmpColor = rooms.addPlayer(vrooms[0]);
       console.log("add player ok");
       if (tmpColor) {
@@ -133,10 +134,11 @@ io.on('connection', function(socket) {
       }
     }
     else {
+      console.log("else ok");
       var tmpKey = rooms.addRoom();
-      console.log("add room ok");
+      console.log("add room ok: " + tmpKey);
       var tmpColor = rooms.addPlayer(tmpKey);
-      console.log("add player ok");
+      console.log("add player ok: " + color);
       if (tmpColor) {
         socket.emit('join valid', tmpColor, tmpKey, rooms);
       } else {
