@@ -6,8 +6,8 @@ var colors = ["green", "blue", "red", "purple"];
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
-var stageSize = 4;
-var blockSize = 32;
+var stageSize = 16;
+var blockSize = 16;
 var edgeBuffer = 0.5;
 
 var nplSize;
