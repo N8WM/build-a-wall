@@ -240,7 +240,7 @@ function draw() {
   for (var i = 0; i < blocks.length; i++) {
     for (var j = 0; j < blocks[0].length; j++) {
       if (blocks[i][j] !== false) {
-        drawWall(i, j, colors[blocks[i][j]];
+        drawWall(i, j, colors[blocks[i][j]]);
       }
     }
   }
@@ -297,10 +297,8 @@ function drawWall(x, y, color) {
 
 function drawCrosshair(color) {
   var ctx = document.getElementById("canvs").getContext("2d");
-  var cx = vpx2rx(transVPX / 2 - crosshairSize);
-  var cy = vpy2ry(transVPY / 2 - crosshairSize);
-  var width = vpx2rx(blockSize);
-  var height = vpy2ry(blockSize);
+  var cx = vpx2rx(transVPX / 2);
+  var cy = vpy2ry(transVPY / 2);
   ctx.beginPath();
   ctx.lineWidth = "3";
   ctx.strokeStyle = color;
