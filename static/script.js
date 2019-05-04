@@ -213,11 +213,11 @@ function run() {
   });
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
-  playerColor = (up?"green":right?"blue":down?"red":left?"purple":"black");
+  detectMovement();
+  tickWall();
   draw();
   drawBorders();
   drawCrosshair("black");
-  detectMovement();
   window.requestAnimationFrame(run);
 }
 
