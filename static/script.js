@@ -11,9 +11,12 @@ var blockSize = 16;
 
 var playerX = 0;
 var playerY = 0;
-var playerD = 90;
-var playerColor = "black";
+var playerSize = blockSize;
+var playerSpeed = 0.5;
+
+var playerColor = "";
 var roomKey = "";
+
 var up = false;
 var right = false;
 var down = false;
@@ -104,7 +107,7 @@ function join() {
   } else if (joinInvalid) {
     end();
   } else {
-    tempRun();   // to be changed to "run();" in the end
+    run();   // to be changed to "run();" in the end
   }
 }
 
@@ -141,6 +144,22 @@ function loading() {
   var loadingDots = (Math.floor(dots)===0)?"":(Math.floor(dots)===1)?".":(Math.floor(dots)===2)?"..":(Math.floor(dots)===3)?"...":"....";
   dots = (dots >= 5)?0.0:(dots + 0.1);
   ctx.fillText("Loading" + loadingDots, vpx2rx(5), vpy2ry(transVPY - 5));
+}
+
+function setup() {
+  if (playerColor === colors[0]) {
+    playerX = 0;
+    playerY = 0;
+  } else if (playerColor === colors[1]) {
+    playerX = 0;
+    playerY = transVPY - playerSize;
+  } else if (playerColor === colors[2]) {
+    playerX = transVPX - playerSize;
+    playerY = transVPY - playerSize;
+  } else if (playerColor === colors[3]) {
+    playerX = transVPX - playerSize;
+    playerY = 0;
+  }
 }
 
 function run() {
@@ -190,9 +209,23 @@ function run() {
   playerColor = (up?"green":right?"blue":down?"red":left?"purple":"black");
   draw();
   drawBorders()
-  playerX += 0.1;
-  playerY += 0.1;
+  detectMovement();
   window.requestAnimationFrame(run);
+}
+
+function detectMovement() {
+  if (up) {
+    playerY -= playerSpeed;
+  }
+  if (right) {
+    playerX += playerSpeed;
+  }
+  if (down) {
+    playerY += playerSpeed;
+  }
+  if (left) {
+    playerX -= playerSpeed;
+  }
 }
 
 function draw() {
