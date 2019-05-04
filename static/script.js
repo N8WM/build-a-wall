@@ -222,16 +222,16 @@ function run() {
 }
 
 function detectMovement() {
-  if (up && playerY > sy2vpy(1)) {
+  if (up && playerY > 0) {
     playerY -= playerSpeed;
   }
-  if (right && playerX < sx2vpx(stageSize - 1)) {
+  if (right && playerX < sx2vpx(stageSize)) {
     playerX += playerSpeed;
   }
-  if (down && playerY < sy2vpy(stageSize - 1)) {
+  if (down && playerY < sy2vpy(stageSize)) {
     playerY += playerSpeed;
   }
-  if (left && playerX > sx2vpx(1)) {
+  if (left && playerX > 0) {
     playerX -= playerSpeed;
   }
 }
@@ -244,6 +244,25 @@ function draw() {
       }
     }
   }
+}
+
+function tickWall() {
+  var i = Math.floor(vpx2sx(playerX));
+  var j = Math.floor(vpy2sy(playerY));
+  var currBlock = blocks[i][j];
+  if (currBlock === false) {
+    addWall(i, j, playerColor);
+  } else if (currBlock !== colors.indexOf(playerColor)) {
+    death();
+  }
+}
+
+function addWall(x, y, color) {
+  blocks[x][y] = colors.indexOf(color);
+}
+
+function death(){
+
 }
 
 function vpx2rx(x) {
