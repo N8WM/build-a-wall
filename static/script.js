@@ -6,8 +6,9 @@ var colors = ["green", "blue", "red", "purple"];
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
-var stageSize = 16;
-var blockSize = 16;
+var stageSize = 64;
+var blockSize = 8;
+var lineSize = 1;
 var edgeBuffer = 0.5;
 
 var nplSize;
@@ -15,7 +16,7 @@ var nplSize;
 var playerX = 0;
 var playerY = 0;
 var crosshairSize = blockSize;
-var playerSpeed = 5;
+var playerSpeed = 3;
 
 var playerColor = "";
 var roomKey = "";
@@ -278,10 +279,6 @@ function vpy2sy(y) {
   return y / blockSize;
 }
 
-function placeWall(x, y, color) {
-  blocks[vpx2sx(x)][vpy2sy(y)] = color;
-}
-
 function drawWall(x, y, color) {
   var ctx = document.getElementById("canvs").getContext("2d");
   var cx = vpx2rx((sx2vpx(x) - playerX + (transVPX / 2)));
@@ -289,7 +286,7 @@ function drawWall(x, y, color) {
   var width = vpx2rx(blockSize);
   var height = vpy2ry(blockSize);
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = color;
   ctx.rect(cx, cy, width, height);
   ctx.stroke();
@@ -300,13 +297,13 @@ function drawCrosshair(color) {
   var cx = vpx2rx(transVPX / 2);
   var cy = vpy2ry(transVPY / 2);
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = color;
   ctx.moveTo(cx - vpx2rx(crosshairSize / 2), cy);
   ctx.lineTo(cx + vpx2rx(crosshairSize / 2), cy);
   ctx.stroke();
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = color;
   ctx.moveTo(cx, cy - vpy2ry(crosshairSize / 2));
   ctx.lineTo(cx, cy + vpy2ry(crosshairSize / 2));
@@ -316,25 +313,25 @@ function drawCrosshair(color) {
 function drawBorders() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = "black";
   ctx.moveTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
   ctx.lineTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
   ctx.stroke();
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = "black";
   ctx.moveTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
   ctx.lineTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
   ctx.stroke();
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = "black";
   ctx.moveTo(vpx2rx((sx2vpx(stageSize) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
   ctx.lineTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
   ctx.stroke();
   ctx.beginPath();
-  ctx.lineWidth = "3";
+  ctx.lineWidth = lineSize;
   ctx.strokeStyle = "black";
   ctx.moveTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(stageSize) - playerY + (transVPY / 2))));
   ctx.lineTo(vpx2rx((sx2vpx(0) - playerX + (transVPX / 2))), vpy2ry((sy2vpy(0) - playerY + (transVPY / 2))));
