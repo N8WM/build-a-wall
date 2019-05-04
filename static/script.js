@@ -6,8 +6,11 @@ var colors = ["green", "blue", "red", "purple"];
 var viewport = (9.0/16.0);
 var transVPX = 256.0;
 var transVPY = 144.0;
-var stageSize = 64;
+var stageSize = 4;
 var blockSize = 16;
+var edgeBuffer = 0.5;
+
+var nplSize;
 
 var playerX = 0;
 var playerY = 0;
@@ -17,10 +20,7 @@ var playerSpeed = 5;
 var playerColor = "";
 var roomKey = "";
 
-var up = false;
-var right = false;
-var down = false;
-var left = false;
+var position;
 
 var blocks = [];
 for (var i = 0; i < stageSize; i++) {
@@ -148,20 +148,20 @@ function loading() {
 
 function setup() {
   if (playerColor === colors[0]) {
-    playerX = 0;
-    playerY = 0;
+    playerX = 0 + edgeBuffer;
+    playerY = 0 + edgeBuffer;
     run();
   } else if (playerColor === colors[1]) {
-    playerX = 0;
-    playerY = sy2vpy(stageSize);
+    playerX = 0 + edgeBuffer;
+    playerY = sy2vpy(stageSize) - edgeBuffer;
     run();
   } else if (playerColor === colors[2]) {
-    playerX = sx2vpx(stageSize);
-    playerY = sy2vpy(stageSize);
+    playerX = sx2vpx(stageSize) - edgeBuffer;
+    playerY = sy2vpy(stageSize) - edgeBuffer;
     run();
   } else if (playerColor === colors[3]) {
-    playerX = sx2vpx(stageSize);
-    playerY = 0;
+    playerX = sx2vpx(stageSize) - edgeBuffer;
+    playerY = 0 + edgeBuffer;
     run();
   }
   else {
@@ -171,46 +171,21 @@ function setup() {
 
 function run() {
   if (!manager) {
+    nplSize = vpy2ry(transVPY / 3);
     var options = {
       zone: document.getElementById("input-container"),                  // active zone
       color: "lightblue",
-      size: vpy2ry(transVPY / 3),
+      size: nplSize,
       multitouch: false,
       //position: {right: vpx2rx(transVPX/7)+'px', bottom: vpx2rx(transVPX/7)+'px'},
       mode: 'dynamic'
     };
     manager = nipplejs.create(options);
   }
-  manager.on('dir:up', function() {
-    up = true;
-    right = false;
-    down = false;
-    left = false;
-  });
-  manager.on('dir:right', function() {
-    right = true;
-    up = false;
-    down = false;
-    left = false;
-  });
-  manager.on('dir:down', function() {
-    down = true;
-    up = false;
-    right = false;
-    left = false;
-  });
-  manager.on('dir:left', function() {
-    left = true;
-    up = false;
-    right = false;
-    down = false;
-  });
-  manager.on('end', function() {
-    left = false;
-    up = false;
-    right = false;
-    down = false;
-  });
+  position = manager.get()?manager.get().position:false;
+  frontPosition = manager.get()?manager.get().frontPosition:false;
+  jx = (frontPosition?frontPosition.x:0 - position?position.x:0)/nplSize*playerSpeed;
+  jy = (frontPosition?frontPosition.y:0 - position?position.y:0)/nplSize*playerSpeed;
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   detectMovement();
@@ -222,34 +197,24 @@ function run() {
 }
 
 function detectMovement() {
-  if (up) {
-    if (playerY - playerSpeed < 0) {
-      playerY = 0;
-    } else {
-      playerY -= playerSpeed;
-    }
+  if (playerX + jx < edgeBuffer) {
+    playerX = edgeBuffer;
+    jx = 0;
   }
-  if (right) {
-    if (playerX + playerSpeed > sx2vpx(stageSize)) {
-      playerX = sx2vpx(stageSize);
-    } else {
-      playerX += playerSpeed;
-    }
+  if (playerY + jy < edgeBuffer) {
+    playerY = edgeBuffer;
+    jy = 0;
   }
-  if (down) {
-    if (playerY + playerSpeed > sy2vpy(stageSize)) {
-      playerY = sy2vpy(stageSize);
-    } else {
-      playerY += playerSpeed;
-    }
+  if (playerX + jx > sx2vpx(stageSize) - edgeBuffer) {
+    playerX = sx2vpx(stageSize) - edgeBuffer;
+    jx = 0;
   }
-  if (left) {
-    if (playerX - playerSpeed < 0) {
-      playerX = 0;
-    } else {
-      playerX -= playerSpeed;
-    }
+  if (playerY + jy > sy2vpy(stageSize) - edgeBuffer) {
+    playerY = sy2vpy(stageSize) - edgeBuffer;
+    jy = 0;
   }
+  playerX += jx;
+  playerY += jy;
 }
 
 function draw() {
