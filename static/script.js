@@ -12,7 +12,7 @@ var blockSize = 16;
 var playerX = 0;
 var playerY = 0;
 var crosshairSize = blockSize;
-var playerSpeed = 1;
+var playerSpeed = 5;
 
 var playerColor = "";
 var roomKey = "";
@@ -26,7 +26,7 @@ var blocks = [];
 for (var i = 0; i < stageSize; i++) {
   var tmp = [];
   for (var j = 0; j < stageSize; j++) {
-    tmp.push(0);
+    tmp.push(false);
   }
   blocks.push(tmp);
 }
@@ -222,16 +222,16 @@ function run() {
 }
 
 function detectMovement() {
-  if (up && playerY > 0) {
+  if (up && playerY > sy2vpy(1)) {
     playerY -= playerSpeed;
   }
-  if (right && playerX < transVPX) {
+  if (right && playerX < sx2vpx(stageSize - 1)) {
     playerX += playerSpeed;
   }
-  if (down && playerY < transVPY) {
+  if (down && playerY < sy2vpy(stageSize - 1)) {
     playerY += playerSpeed;
   }
-  if (left && playerX > 0) {
+  if (left && playerX > sx2vpx(1)) {
     playerX -= playerSpeed;
   }
 }
@@ -239,8 +239,8 @@ function detectMovement() {
 function draw() {
   for (var i = 0; i < blocks.length; i++) {
     for (var j = 0; j < blocks[0].length; j++) {
-      if (blocks[i][j] !== 1) { // testing-- change "!==" back to "===" for final product.
-        drawWall(i, j, playerColor);
+      if (blocks[i][j] !== false) {
+        drawWall(i, j, colors[blocks[i][j]];
       }
     }
   }
