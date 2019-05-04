@@ -297,8 +297,8 @@ function drawWall(x, y, color) {
 
 function drawCrosshair(color) {
   var ctx = document.getElementById("canvs").getContext("2d");
-  var cx = vpx2rx((transVPX / 2 - crosshairSize - playerX + (transVPX / 2)));
-  var cy = vpy2ry((transVPY / 2 - crosshairSize - playerY + (transVPY / 2)));
+  var cx = vpx2rx(transVPX / 2 - crosshairSize);
+  var cy = vpy2ry(transVPY / 2 - crosshairSize);
   var width = vpx2rx(blockSize);
   var height = vpy2ry(blockSize);
   ctx.beginPath();
