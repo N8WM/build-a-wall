@@ -153,14 +153,14 @@ function setup() {
     run();
   } else if (playerColor === colors[1]) {
     playerX = 0;
-    playerY = transVPY;
+    playerY = sy2vpy(stageSize);
     run();
   } else if (playerColor === colors[2]) {
-    playerX = transVPX;
-    playerY = transVPY;
+    playerX = sx2vpx(stageSize);
+    playerY = sy2vpy(stageSize);
     run();
   } else if (playerColor === colors[3]) {
-    playerX = transVPX;
+    playerX = sx2vpx(stageSize);
     playerY = 0;
     run();
   }
@@ -222,17 +222,33 @@ function run() {
 }
 
 function detectMovement() {
-  if (up && playerY > 0) {
-    playerY -= playerSpeed;
+  if (up) {
+    if (playerY - playerSpeed < 0) {
+      playerY = 0;
+    } else {
+      playerY -= playerSpeed;
+    }
   }
-  if (right && playerX < sx2vpx(stageSize)) {
-    playerX += playerSpeed;
+  if (right) {
+    if (playerX + playerSpeed > sx2vpx(stageSize)) {
+      playerX = sx2vpx(stageSize);
+    } else {
+      playerX += playerSpeed;
+    }
   }
-  if (down && playerY < sy2vpy(stageSize)) {
-    playerY += playerSpeed;
+  if (down) {
+    if (playerY + playerSpeed > sy2vpy(stageSize)) {
+      playerY = sy2vpy(stageSize);
+    } else {
+      playerY += playerSpeed;
+    }
   }
-  if (left && playerX > 0) {
-    playerX -= playerSpeed;
+  if (left) {
+    if (playerX - playerSpeed < 0) {
+      playerX = 0;
+    } else {
+      playerX -= playerSpeed;
+    }
   }
 }
 
