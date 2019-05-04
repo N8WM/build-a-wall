@@ -11,8 +11,8 @@ var blockSize = 16;
 
 var playerX = 0;
 var playerY = 0;
-var playerSize = blockSize;
-var playerSpeed = 0.5;
+var crosshairSize = blockSize;
+var playerSpeed = 1;
 
 var playerColor = "";
 var roomKey = "";
@@ -107,7 +107,7 @@ function join() {
   } else if (joinInvalid) {
     end();
   } else {
-    run();   // to be changed to "run();" in the end
+    setup();
   }
 }
 
@@ -150,15 +150,22 @@ function setup() {
   if (playerColor === colors[0]) {
     playerX = 0;
     playerY = 0;
+    run();
   } else if (playerColor === colors[1]) {
     playerX = 0;
-    playerY = transVPY - playerSize;
+    playerY = transVPY;
+    run();
   } else if (playerColor === colors[2]) {
-    playerX = transVPX - playerSize;
-    playerY = transVPY - playerSize;
+    playerX = transVPX;
+    playerY = transVPY;
+    run();
   } else if (playerColor === colors[3]) {
-    playerX = transVPX - playerSize;
+    playerX = transVPX;
     playerY = 0;
+    run();
+  }
+  else {
+    end();
   }
 }
 
@@ -208,22 +215,23 @@ function run() {
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
   playerColor = (up?"green":right?"blue":down?"red":left?"purple":"black");
   draw();
-  drawBorders()
+  drawBorders();
+  drawCrosshair("black");
   detectMovement();
   window.requestAnimationFrame(run);
 }
 
 function detectMovement() {
-  if (up) {
+  if (up && playerY > 0) {
     playerY -= playerSpeed;
   }
-  if (right) {
+  if (right && playerX < transVPX) {
     playerX += playerSpeed;
   }
-  if (down) {
+  if (down && playerY < transVPY) {
     playerY += playerSpeed;
   }
-  if (left) {
+  if (left && playerX > 0) {
     playerX -= playerSpeed;
   }
 }
@@ -284,6 +292,26 @@ function drawWall(x, y, color) {
   ctx.lineWidth = "3";
   ctx.strokeStyle = color;
   ctx.rect(cx, cy, width, height);
+  ctx.stroke();
+}
+
+function drawCrosshair(color) {
+  var ctx = document.getElementById("canvs").getContext("2d");
+  var cx = vpx2rx((transVPX / 2 - crosshairSize - playerX + (transVPX / 2)));
+  var cy = vpy2ry((transVPY / 2 - crosshairSize - playerY + (transVPY / 2)));
+  var width = vpx2rx(blockSize);
+  var height = vpy2ry(blockSize);
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = color;
+  ctx.moveTo(cx - vpx2rx(crosshairSize / 2), cy);
+  ctx.lineTo(cx + vpx2rx(crosshairSize / 2), cy);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = color;
+  ctx.moveTo(cx, cy - vpy2ry(crosshairSize / 2));
+  ctx.lineTo(cx, cy + vpy2ry(crosshairSize / 2));
   ctx.stroke();
 }
 
