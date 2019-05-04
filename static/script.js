@@ -32,7 +32,6 @@ for (var i = 0; i < stageSize; i++) {
 var touch = false;
 var joinValid = false;
 var joinInvalid = false;
-var debugObj = "It worked!";
 var dots = 0.0;
 
 var gameplayWidth = 0;
@@ -55,58 +54,6 @@ function initiate() {
   gameplay.style.height = gameplayHeight + "px";
   canvas.width = gameplayWidth;
   canvas.height = gameplayHeight;
-}
-
-function run() {
-  if (!manager) {
-    var options = {
-      zone: document.getElementById("input-container"),                  // active zone
-      color: "lightblue",
-      size: vpy2ry(transVPY / 3),
-      multitouch: false,
-      //position: {right: vpx2rx(transVPX/7)+'px', bottom: vpx2rx(transVPX/7)+'px'},
-      mode: 'dynamic'
-    };
-    manager = nipplejs.create(options);
-  }
-  manager.on('dir:up', function() {
-    up = true;
-    right = false;
-    down = false;
-    left = false;
-  });
-  manager.on('dir:right', function() {
-    right = true;
-    up = false;
-    down = false;
-    left = false;
-  });
-  manager.on('dir:down', function() {
-    down = true;
-    up = false;
-    right = false;
-    left = false;
-  });
-  manager.on('dir:left', function() {
-    left = true;
-    up = false;
-    right = false;
-    down = false;
-  });
-  manager.on('end', function() {
-    left = false;
-    up = false;
-    right = false;
-    down = false;
-  });
-  var ctx = document.getElementById("canvs").getContext("2d");
-  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
-  playerColor = (up?"green":right?"blue":down?"red":left?"purple":"black");
-  draw();
-  drawBorders()
-  playerX += 0.1;
-  playerY += 0.1;
-  window.requestAnimationFrame(run);
 }
 
 var play = 0;
@@ -194,6 +141,58 @@ function loading() {
   var loadingDots = (Math.floor(dots)===0)?"":(Math.floor(dots)===1)?".":(Math.floor(dots)===2)?"..":(Math.floor(dots)===3)?"...":"....";
   dots = (dots >= 5)?0.0:(dots + 0.1);
   ctx.fillText("Loading" + loadingDots, vpx2rx(5), vpy2ry(transVPY - 5));
+}
+
+function run() {
+  if (!manager) {
+    var options = {
+      zone: document.getElementById("input-container"),                  // active zone
+      color: "lightblue",
+      size: vpy2ry(transVPY / 3),
+      multitouch: false,
+      //position: {right: vpx2rx(transVPX/7)+'px', bottom: vpx2rx(transVPX/7)+'px'},
+      mode: 'dynamic'
+    };
+    manager = nipplejs.create(options);
+  }
+  manager.on('dir:up', function() {
+    up = true;
+    right = false;
+    down = false;
+    left = false;
+  });
+  manager.on('dir:right', function() {
+    right = true;
+    up = false;
+    down = false;
+    left = false;
+  });
+  manager.on('dir:down', function() {
+    down = true;
+    up = false;
+    right = false;
+    left = false;
+  });
+  manager.on('dir:left', function() {
+    left = true;
+    up = false;
+    right = false;
+    down = false;
+  });
+  manager.on('end', function() {
+    left = false;
+    up = false;
+    right = false;
+    down = false;
+  });
+  var ctx = document.getElementById("canvs").getContext("2d");
+  ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
+  playerColor = (up?"green":right?"blue":down?"red":left?"purple":"black");
+  draw();
+  drawBorders()
+  playerX += 0.1;
+  playerY += 0.1;
+  window.requestAnimationFrame(run);
 }
 
 function draw() {
