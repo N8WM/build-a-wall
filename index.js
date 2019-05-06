@@ -53,6 +53,7 @@ function Rooms() {                     // an object that holds rooms
 function Room(roomKey) {                       // an object that stores the necessary values for a room
   this.roomKey = roomKey;                      // roomKey (str), stage (int[][]), colors (int[]), time (int);
   this.stage = function() {                    // colors: signifies what colors have already been taken
+    var tmpStage = [];
     for (var i = 0; i < stageSize; i++) {
       var tmp = [];
       for (var j = 0; j < stageSize; j++) {
