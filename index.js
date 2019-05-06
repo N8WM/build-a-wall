@@ -45,8 +45,8 @@ function Rooms() {                     // an object that holds rooms
     }
     return vr;
   };
-  this.addPlayer = function (apk) {            // add a player to the room with the specified key, returns color
-    return this.getRoom(apk).addPlayer();
+  this.addPlayer = function (apk, apsig) {            // add a player to the room with the specified key, returns color
+    return this.getRoom(apk).addPlayer(apsig);
   };
 }
 
@@ -63,6 +63,7 @@ function Room(roomKey) {                       // an object that stores the nece
     return tmpStage;
   };
   this.colors = [];
+  this.signatures = [];
   this.time = 300;
   this.getRoomKey = function () {
     return this.roomKey;
@@ -79,13 +80,10 @@ function Room(roomKey) {                       // an object that stores the nece
   this.getColors = function () {
     return this.colors;
   };
-  this.addColor = function (ac) {
-    this.colors.push(ac);
-  };
   this.isVacant = function () {
     return this.colors.length < colors.length;
   };
-  this.addPlayer = function () {
+  this.addPlayer = function (apsig) {
     var ctmp;
     if (this.isVacant()) {
       ctmp = colors[Math.floor(Math.random()*colors.length)];
@@ -93,6 +91,7 @@ function Room(roomKey) {                       // an object that stores the nece
         ctmp = colors[Math.floor(Math.random()*colors.length)];
       }
       this.colors.push(ctmp);
+      this.signatures.push(apsig);
       return ctmp;
     }
     return false;
@@ -126,7 +125,7 @@ io.on('connection', function(socket) {
     console.log("vacant rooms ok: " + vrooms);
     if (vrooms.length > 0) {
       console.log("if ok");
-      var tmpColor = rooms.addPlayer(vrooms[0]);
+      var tmpColor = rooms.addPlayer(vrooms[0], socket);
       console.log("add player ok: " + tmpColor);
       if (tmpColor) {
         socket.emit('join valid', tmpColor, vrooms[0]);
@@ -138,7 +137,7 @@ io.on('connection', function(socket) {
       console.log("else ok");
       var tmpKey = rooms.addRoom();
       console.log("add room ok: " + tmpKey + " ... " + rooms.rooms.length);
-      var tmpColor = rooms.addPlayer(tmpKey);
+      var tmpColor = rooms.addPlayer(tmpKey, socket);
       console.log("add player ok: " + tmpColor);
       if (tmpColor) {
         socket.emit('join valid', tmpColor, tmpKey);
