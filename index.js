@@ -8,6 +8,18 @@ var colors = ["green", "blue", "red", "purple"];
 var stageSize = 64;
 var rooms = new Rooms();
 
+var modelStage = function() {
+  var tmpStage = [];
+  for (var i = 0; i < stageSize; i++) {
+    var tmp = [];
+    for (var j = 0; j < stageSize; j++) {
+      tmp.push(false);
+    }
+    tmpStage.push(tmp);
+  }
+  return tmpStage;
+};
+
 function Rooms() {                     // an object that holds rooms
   this.rooms = [];
   this.addRoom = function() {                 // generates a room with random room key, returns key
@@ -52,17 +64,7 @@ function Rooms() {                     // an object that holds rooms
 
 function Room(roomKey) {                       // an object that stores the necessary values for a room
   this.roomKey = roomKey;                      // roomKey (str), stage (int[][]), colors (int[]), time (int);
-  this.stage = function() {                    // colors: signifies what colors have already been taken
-    var tmpStage = [];
-    for (var i = 0; i < stageSize; i++) {
-      var tmp = [];
-      for (var j = 0; j < stageSize; j++) {
-        tmp.push(false);
-      }
-      tmpStage.push(tmp);
-    }
-    return tmpStage;
-  };
+  this.stage = modelStage;
   this.colors = [];
   this.signatures = [];
   this.time = 300;
