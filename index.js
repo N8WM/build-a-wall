@@ -96,7 +96,7 @@ function Room(roomKey) {                       // an object that stores the nece
     }
     return false;
   };
-  this.submitStage() = function () {
+  this.submitStage = function () {
     for (var i = 0; i < this.signatures.length; i++) {
       this.signatures[i].emit('ssub', this.stage);
     }
