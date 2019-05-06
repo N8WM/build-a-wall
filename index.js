@@ -56,7 +56,7 @@ function Room(roomKey) {                       // an object that stores the nece
     for (var i = 0; i < stageSize; i++) {
       var tmp = [];
       for (var j = 0; j < stageSize; j++) {
-        tmp.push(null);
+        tmp.push(false);
       }
       tmpStage.push(tmp);
     }
@@ -95,6 +95,11 @@ function Room(roomKey) {                       // an object that stores the nece
       return ctmp;
     }
     return false;
+  };
+  this.submitStage() = function () {
+    for (var i = 0; i < this.signatures.length; i++) {
+      this.signatures[i].emit('ssub', this.stage);
+    }
   };
 }
 
@@ -145,6 +150,10 @@ io.on('connection', function(socket) {
         socket.emit('join invalid');
       }
     }
+  });
+  socket.on('block', function(key, x, y, pcolor) {
+    rooms.getRoom(key).addBlock(x, y, pcolor);
+    rooms.getRoom(key).submitStage();
   });
 
   console.log("load");
