@@ -122,6 +122,10 @@ socket.on('join invalid', function() {
   joinInvalid = true;
 });
 
+socket.on('ssub', function(stg) {
+  blocks = stg;
+});
+
 function end() {
   var ctx = document.getElementById("canvs").getContext("2d");
   ctx.clearRect(0, 0, gameplayWidth, gameplayHeight);
@@ -240,7 +244,8 @@ function tickWall() {
 }
 
 function addWall(x, y, color) {
-  blocks[x][y] = colors.indexOf(color);
+  // blocks[x][y] = colors.indexOf(color);
+  socket.emit('block', roomKey, x, y, color);
 }
 
 function death(){
