@@ -244,8 +244,8 @@ function tickWall() {
 }
 
 function addWall(x, y, color) {
-  // blocks[x][y] = colors.indexOf(color);
-  socket.emit('block', roomKey, x, y, color);
+  blocks[x][y] = colors.indexOf(color);  // testing, remove later
+  // socket.emit('block', roomKey, x, y, color);
 }
 
 function death(){
