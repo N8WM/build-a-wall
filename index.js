@@ -75,6 +75,8 @@ function Room(roomKey) {                       // an object that stores the nece
     return this.stage;
   };
   this.addBlock = function (x, y, c) {
+    console.log(stage[x][y]);
+    console.log(c);
     this.stage[x][y] = c;
   };
   this.getTime = function () {
