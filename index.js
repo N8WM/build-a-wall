@@ -126,9 +126,6 @@ io.on('connection', function(socket) {
   socket.on('reply', function(){ #### }); // listen to the event
   **/
   socket.on('join', function() {
-    /*var color = colors[Math.floor(Math.random()*colors.length)];
-    var roomKey = "1234";
-    socket.emit('join valid', color, roomKey);*/
     var vrooms = rooms.getVacantRooms();
     console.log("vacant rooms ok: " + vrooms);
     if (vrooms.length > 0) {
