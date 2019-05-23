@@ -8,7 +8,7 @@ var colors = ["green", "blue", "red", "purple"];
 var stageSize = 64;
 var rooms = new Rooms();
 
-var modelStage = function() {
+function createModelStage() {
   var tmpStage = [];
   for (var i = 0; i < stageSize; i++) {
     var tmp = [];
@@ -18,7 +18,18 @@ var modelStage = function() {
     tmpStage.push(tmp);
   }
   return tmpStage;
-};
+}
+
+function dupStage(original, copy) {
+  for (var i = 0; i < original.length; i++) {
+    copy.push([]);
+    for (var j = 0; j < original[i].length; j++) {
+      copy[i].push(original[i][j]);
+    }
+  }
+}
+
+var modelStage = createModelStage();
 
 function Rooms() {                     // an object that holds rooms
   this.rooms = [];
@@ -64,7 +75,8 @@ function Rooms() {                     // an object that holds rooms
 
 function Room(roomKey) {                       // an object that stores the necessary values for a room
   this.roomKey = roomKey;                      // roomKey (str), stage (int[][]), colors (int[]), time (int);
-  this.stage = modelStage;
+  this.stage = [];
+  dupStage(modelStage, this.stage);
   this.colors = [];
   this.signatures = [];
   this.time = 300;
@@ -75,8 +87,6 @@ function Room(roomKey) {                       // an object that stores the nece
     return this.stage;
   };
   this.addBlock = function (x, y, c) {
-    console.log(stage[x][y]);
-    console.log(c);
     this.stage[x][y] = c;
   };
   this.getTime = function () {
@@ -129,24 +139,20 @@ io.on('connection', function(socket) {
   **/
   socket.on('join', function() {
     var vrooms = rooms.getVacantRooms();
-    console.log("vacant rooms ok: " + vrooms);
     if (vrooms.length > 0) {
-      console.log("if ok");
       var tmpColor = rooms.addPlayer(vrooms[0], socket);
-      console.log("add player ok: " + tmpColor);
       if (tmpColor) {
+        console.log("#sig: "+rooms.getRoom(vrooms[0]).signatures);
         socket.emit('join valid', tmpColor, vrooms[0]);
       } else {
         socket.emit('join invalid');
       }
     }
     else {
-      console.log("else ok");
       var tmpKey = rooms.addRoom();
-      console.log("add room ok: " + tmpKey + " ... " + rooms.rooms.length);
       var tmpColor = rooms.addPlayer(tmpKey, socket);
-      console.log("add player ok: " + tmpColor);
       if (tmpColor) {
+        console.log("#sig: "+rooms.getRoom(tmpKey).signatures);
         socket.emit('join valid', tmpColor, tmpKey);
       } else {
         socket.emit('join invalid');
@@ -154,7 +160,7 @@ io.on('connection', function(socket) {
     }
   });
   socket.on('block', function(key, x, y, pcolor) {
-    rooms.getRoom(key).addBlock(x, y, pcolor);
+    rooms.getRoom(key).addBlock(x, y, colors.indexOf(pcolor));
     rooms.getRoom(key).submitStage();
   });
 
