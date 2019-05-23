@@ -111,9 +111,14 @@ function Room(roomKey) {                       // an object that stores the nece
     }
     return false;
   };
-  this.submitStage = function () {
+  this.submitStage = function (chngs) {
     for (var i = 0; i < this.signatures.length; i++) {
-      this.signatures[i].emit('ssub', this.stage);
+      this.signatures[i].emit('ssub', chngs);
+    }
+  };
+  this.startRoom = function () {
+    for (var i = 0; i < this.signatures.length; i++) {
+      this.signatures[i].emit('begin', this.stage);
     }
   };
 }
@@ -142,7 +147,6 @@ io.on('connection', function(socket) {
     if (vrooms.length > 0) {
       var tmpColor = rooms.addPlayer(vrooms[0], socket);
       if (tmpColor) {
-        console.log("#sig: "+rooms.getRoom(vrooms[0]).signatures);
         socket.emit('join valid', tmpColor, vrooms[0]);
       } else {
         socket.emit('join invalid');
@@ -152,7 +156,6 @@ io.on('connection', function(socket) {
       var tmpKey = rooms.addRoom();
       var tmpColor = rooms.addPlayer(tmpKey, socket);
       if (tmpColor) {
-        console.log("#sig: "+rooms.getRoom(tmpKey).signatures);
         socket.emit('join valid', tmpColor, tmpKey);
       } else {
         socket.emit('join invalid');
@@ -161,7 +164,7 @@ io.on('connection', function(socket) {
   });
   socket.on('block', function(key, x, y, pcolor) {
     rooms.getRoom(key).addBlock(x, y, colors.indexOf(pcolor));
-    rooms.getRoom(key).submitStage();
+    rooms.getRoom(key).submitStage([x, y, colors.indexOf(pcolor)]);
   });
 
   console.log("load");

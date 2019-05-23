@@ -122,8 +122,8 @@ socket.on('join invalid', function() {
   joinInvalid = true;
 });
 
-socket.on('ssub', function(stg) {
-  blocks = stg;
+socket.on('ssub', function(stgchngs) {
+  blocks[stgchngs[0]][stgchngs[1]] = stgchngs[2];
 });
 
 function end() {
